@@ -25,9 +25,11 @@ This project displays the top 100 albums from the iTunes API. It provides a user
 - **Data Fetching:** Retrieves top album data from the iTunes API.
 - **Responsive Design:** Uses a mobile-first approach with CSS Grid and Flexbox.
 - **Modular Components:** Organized into reusable components like `AlbumList`, `AlbumCard`, `Pagination`, and `SearchBar`.
+- **Decoupled API Services:**  Each API service imports a shared base API function, defines its unique endpoint, and exports a function that fetches and returns typed data, ensuring a clean separation of concerns and maintainability.
 - **Type Safety:** Developed using TypeScript with clearly defined interfaces.
 - **Pagination:** Displays albums in pages (10 per page) with navigable controls.
-- **Search Functionality:** Filter albums by name or artist.
+- **Inifinite Scrolling:** Loads more albums automatically as the user scrolls.
+- **Search Functionality:** Search albums by name or artist.
 - **CSS Animations:** Smooth hover effects on album cards.
 - **Deployment Ready:** Easily deployable using Vercel.
 
@@ -41,7 +43,7 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/top-itunes-albums.git
+    git clone https://github.com/kca0615/top-itunes-albums
     ```
 
 2. **Navigate into the project directory:**

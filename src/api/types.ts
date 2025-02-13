@@ -1,5 +1,27 @@
 // src/types.ts
 
+// The top-level response from the API
+export interface ITunesResponse {
+  feed: ITunesFeed;
+}
+// Interface for the feed that contains all entries and possibly other metadata
+export interface ITunesFeed {
+  author: {
+    name: { label: string };
+    uri: { label: string };
+  };
+  entry: ITunesEntry[];
+}
+
+export interface Album {
+  id: string;
+  title: string;
+  artist: string;
+  image: string;
+  albumUrl: string;
+  releaseDate: Date
+}
+
 // Interface for an image in the entry
 export interface ITunesImage {
   label: string;
@@ -37,27 +59,7 @@ export interface ITunesEntry {
   };
 }
 
-// Interface for the feed that contains all entries and possibly other metadata
-export interface ITunesFeed {
-  author: {
-    name: { label: string };
-    uri: { label: string };
-  };
-  entry: ITunesEntry[];
-}
 
-// The top-level response from the API
-export interface ITunesResponse {
-  feed: ITunesFeed;
-}
-
-export interface Album {
-  id: string;
-  title: string;
-  artist: string;
-  image: string;
-  albumUrl: string;
-}
 
 export interface TopSongsResponse {
   feed: {
@@ -83,4 +85,13 @@ export interface TopVideoResponse {
       };
     }>;
   };
+}
+
+export type FilterOption = 'title' | 'artist' | 'latest';
+
+export interface SearchBarProps {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  filter: FilterOption;      
+  setFilter: (filter: FilterOption) => void; 
 }

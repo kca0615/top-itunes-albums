@@ -1,78 +1,63 @@
 // src/components/SearchBar.tsx
-// SearchBar component that provides a left-aligned search input and a right-aligned filter button group.
+// SearchBar component that provides a left-aligned search input with an integrated clear button
+// and a right-aligned filter button group acting as tabs ("Title", "Artist", "Latest").
+// This version uses a semantic <form> and <label> to wrap the input and clear button.
 
-import React, { useState } from 'react';
+import React from 'react';
+import { FilterOption, SearchBarProps } from '../api/types';
 
-// Define the props expected by SearchBar.
-interface SearchBarProps {
-  searchQuery: string;
-  setSearchQuery: (query: string) => void;
-}
-
-type FilterOption = 'title' | 'artist' | 'latest';
-
-const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery }) => {
-  // Local state to keep track of the selected filter.
-  const [filter, setFilter] = useState<FilterOption>('title');
-
-  // Handler function to update the filter state.
-  // You could also pass this value up to a parent if needed.
-  const handleFilterChange = (newFilter: FilterOption) => {
-    setFilter(newFilter);
-    // TODO: Optionally notify parent component about the filter change.
-  };
-
+const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, filter, setFilter }) => {
   return (
-    // Container using flexbox to align the search input to the left and filters to the right.
-    <div
-      className="search-bar-container"
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '0 1rem',
-      }}
-    >
-      {/* Left: Search input */}
-      <input
-        type="text"
-        placeholder="Enter artist or album"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="search-input"
-        aria-label="Enter artist or album"
-        style={{ flex: 1, marginRight: '1rem' }}
-
-
-
-      />
-      
-      {/* Right: Filter button group */}
-      <div
-        className="filter-button-group"
-        style={{
-          display: 'flex',
-          gap: '0.5rem',
-        }}
+    // The container aligns the search form and the filter button group side by side.
+    <div className="search-filter-container">
+      {/* The search form wraps the input and clear button, using a label for semantic association */}
+      <form
+        className="search-form"
+        onSubmit={(e) => e.preventDefault()} // Prevent default form submission behavior.
       >
+        <label className="search-input-label">
+          <input
+            type="text"
+            placeholder="Enter artist or album"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+            aria-label="Enter artist or album"
+          />
+          {/* The clear button is positioned inside the label so it appears inside the search input.
+              It is only rendered when there is text in the input. */}
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              className="clear-button"
+              aria-label="Clear search"
+            >
+              &times;
+            </button>
+          )}
+        </label>
+      </form>
+      {/* The filter button group is placed on the right side */}
+      <div className="filter-button-group">
         <button
-          onClick={() => handleFilterChange('title')}
+          onClick={() => setFilter('title')}
           className={`filter-button ${filter === 'title' ? 'active' : ''}`}
-          aria-label="Title"
+          aria-label="Filter by Title"
         >
           Title
         </button>
         <button
-          onClick={() => handleFilterChange('artist')}
+          onClick={() => setFilter('artist')}
           className={`filter-button ${filter === 'artist' ? 'active' : ''}`}
-          aria-label="Artist"
+          aria-label="Filter by Artist"
         >
           Artist
         </button>
         <button
-          onClick={() => handleFilterChange('latest')}
+          onClick={() => setFilter('latest')}
           className={`filter-button ${filter === 'latest' ? 'active' : ''}`}
-          aria-label="Latest"
+          aria-label="Filter by Latest"
         >
           Latest
         </button>
