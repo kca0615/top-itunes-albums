@@ -9,11 +9,11 @@ interface SearchBarProps {
   setSearchQuery: (query: string) => void;
 }
 
-type FilterOption = 'featured' | 'artist' | 'newest';
+type FilterOption = 'title' | 'artist' | 'latest';
 
 const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery }) => {
   // Local state to keep track of the selected filter.
-  const [filter, setFilter] = useState<FilterOption>('featured');
+  const [filter, setFilter] = useState<FilterOption>('title');
 
   // Handler function to update the filter state.
   // You could also pass this value up to a parent if needed.
@@ -56,11 +56,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery }) =>
         }}
       >
         <button
-          onClick={() => handleFilterChange('featured')}
-          className={`filter-button ${filter === 'featured' ? 'active' : ''}`}
-          aria-label="Featured"
+          onClick={() => handleFilterChange('title')}
+          className={`filter-button ${filter === 'title' ? 'active' : ''}`}
+          aria-label="Title"
         >
-          Featured
+          Title
         </button>
         <button
           onClick={() => handleFilterChange('artist')}
@@ -70,11 +70,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery }) =>
           Artist
         </button>
         <button
-          onClick={() => handleFilterChange('newest')}
-          className={`filter-button ${filter === 'newest' ? 'active' : ''}`}
-          aria-label="Newest"
+          onClick={() => handleFilterChange('latest')}
+          className={`filter-button ${filter === 'latest' ? 'active' : ''}`}
+          aria-label="Latest"
         >
-          Newest
+          Latest
         </button>
       </div>
     </div>
