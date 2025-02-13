@@ -6,11 +6,14 @@
 :root {
   --primary-color: #FF1F56;
   --secondary-color: #2d394b;
+  --tertiary-color: rgb(255 31 87 / 0.5);
   --background-color: #0b1828;
   --text-color: #333;
-  --hover-color: rgb(255 31 87 / 0.5);
+  --hover-color: rgb(255 31 87 / 0.8);
+  
   --disabled-color: rgb(203 203 205 / 0.99);
   --disabled-text:#333;
+  --dark-bg:#1B1C1E;
   --card-border-radius: 8px;
   --transition-speed: 0.3s;
 }
@@ -70,33 +73,93 @@ footer {
 }
 
 /* =====================================================
+   Search Bar and Filter Styles
+   ===================================================== */
+  /* Base styles: When viewport is 480px or wider, display items in a row */
+.search-filter-container {
+  display: flex;               /* Use flexbox layout */
+  justify-content: space-between;  /* Place first child (search input) to the left and the filter group to the right */
+  align-items: center;         /* Vertically center the children */
+  padding: 0 1rem;             /* Horizontal padding */
+}
+
+/* Mobile styles: When viewport is less than 480px, stack items vertically */
+@media (max-width: 479px) {
+  .search-filter-container {
+    flex-direction: column;   /* Stack items vertically */
+    align-items: stretch;      /* Make children fill the container width */
+  }
+}
+
+/* =====================================================
    Search Bar Styles
    ===================================================== */
+
 .search-bar {
   margin: 1rem auto;
 }
 
+/* Base style for the search input */
 .search-input {
-  width: 80%;
+  width: 100%;
   max-width: 400px;
   padding: 0.5rem;
   border: none;
   border-radius: var(--card-border-radius);
 }
 
+/* Specific styling for input element with class search-input */
 input.search-input {
-    height: 50px;
-    font-size: 14px;
-    background-image: ("../assets/search-icon.svg");
-    background-repeat: no-repeat;
-    background-position: left center;
-    padding-left: 40px;
-    background-color: #fff;
-    border: 1px solid #000;
-    box-shadow: none;
-    -webkit-appearance: none;
+  height: 50px;
+  font-size: 14px;
+  /* Use the correct relative path for the SVG */
+  background-image: url("../assets/magSearch.svg");
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-left: 40px;          /* Leave space for the search icon */
+  background-color: #fff;
+  border: 1px solid #000;
+  box-shadow: none;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
+/* =====================================================
+   Filter Button Group Styles
+   ===================================================== */
+
+/* Container for the filter buttons, aligned to the right in row layout */
+.filter-button-group {
+  display: flex;         /* Use flexbox layout */
+  gap: 0.5rem;           /* Space between buttons */
+  background: var(--dark-bg);     
+  padding: 8px;
+  border-radius: 8px;
+  justify-content: center;
+}
+
+/* Individual filter button styling */
+button.filter-button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  min-width: 50px;
+    cursor: pointer;
+
+}
+
+/* Styling for the active filter button */
+button.filter-button.active {
+  background: var(--primary-color);
+  min-width: 50px;
+
+
+  color: #fff;
+  border: none;
+  border-radius: var(--card-border-radius);
+  transition: background-color var(--transition-speed) ease;
+}
 /* =====================================================
    Album List & Grid Styles
    ===================================================== */
@@ -194,7 +257,7 @@ input.search-input {
 }
 
 .pagination-button {
-  background-color: var(--primary-color);
+  background-color: var(--tertiary-color);
   color: #fff;
   border: none;
   padding: 0.5rem 0.75rem;
