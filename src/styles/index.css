@@ -1,0 +1,322 @@
+/* src/styles/index.css */
+
+/* =====================================================
+   Global Variables & Reset
+   ===================================================== */
+:root {
+  --primary-color: #FF1F56;
+  --secondary-color: #2d394b;
+  --background-color: #0b1828;
+  --text-color: #333;
+  --hover-color: rgb(255 31 87 / 0.5);
+  --disabled-color: rgb(203 203 205 / 0.99);
+  --disabled-text:#333;
+  --card-border-radius: 8px;
+  --transition-speed: 0.3s;
+}
+
+/* Reset margins, paddings, and box-sizing for all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Firefox scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) transparent;
+}
+
+/* WebKit-based scrollbar styling (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+/* =====================================================
+   Global Base Styles
+   ===================================================== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Fill the entire viewport height */
+}
+
+header {
+  background-color: var(--secondary-color);
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+footer {
+  background-color: var(--secondary-color);
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* =====================================================
+   Search Bar Styles
+   ===================================================== */
+.search-bar {
+  margin: 1rem auto;
+}
+
+.search-input {
+  width: 80%;
+  max-width: 400px;
+  padding: 0.5rem;
+  border: none;
+  border-radius: var(--card-border-radius);
+}
+
+input.search-input {
+    height: 50px;
+    font-size: 14px;
+    background-image: ("../assets/search-icon.svg");
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 40px;
+    background-color: #fff;
+    border: 1px solid #000;
+    box-shadow: none;
+    -webkit-appearance: none;
+}
+
+/* =====================================================
+   Album List & Grid Styles
+   ===================================================== */
+.album-list-container {
+  padding: 1rem;
+}
+
+/* The wrapper for album grid and sticky pagination */
+.album-list-wrapper {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Make sure the parent provides a fixed height */
+}
+
+/* Scrollable container for the album grid */
+.album-list-container {
+  flex: 1;               /* Grow to fill available space */
+  overflow-y: auto;
+  /* Extra bottom padding to avoid content being hidden by sticky pagination */
+  padding-bottom: 60px;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* =====================================================
+   Album Card Styles
+   ===================================================== */
+.album-card {
+  background-color: #fff;
+  border-radius: var(--card-border-radius);
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+  overflow: hidden;
+  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1), 11px 12px 36px 0px rgba(0, 0, 0, 0.1), 42px 49px 65px 0px rgba(0, 0, 0, 0.09), 95px 111px 88px 0px rgba(0, 0, 0, 0.05), 170px 198px 104px 0px rgba(0, 0, 0, 0.01), 265px 309px 114px 0px rgba(0, 0, 0, 0);
+
+}
+
+.album-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.album-image-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.album-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform var(--transition-speed) ease;
+  image-rendering: auto;
+}
+
+.album-card:hover .album-image {
+  transform: scale(1.1);
+}
+
+.album-info {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.album-title {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.album-artist {
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+}
+
+/* =====================================================
+   Pagination Styles
+   ===================================================== */
+.pagination-container {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.pagination {
+  list-style: none;
+  display: inline-flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.pagination-button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--card-border-radius);
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: var(--hover-color);
+}
+
+.pagination-button:disabled {
+  background-color: var(--disabled-color);
+  color: var(--disabled-text);
+  cursor: not-allowed;
+}
+
+.pagination-button.active {
+  background-color: var(--secondary-color);
+}
+
+
+/* Sticky Pagination (outside the scrollable album grid) */
+.pagination-wrapper {
+  position: sticky;
+  bottom: 0;
+  background: var(--background-color);
+  padding: 0.5rem 1rem;
+  z-index: 10;
+  border-top: 1px solid #ccc;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+/* =====================================================
+   Responsive Styles for Album Grid
+   ===================================================== */
+@media (min-width: 600px) {
+  .album-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+/* =====================================================
+   Layout Styles for Main Content
+   ===================================================== */
+
+/* Single-column layout when no album is selected */
+.content-container.single-column {
+  flex: 1;
+  display: block;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Two-column layout for desktops when an album is selected */
+/* This layout is applied only for viewports >= 480px */
+@media (min-width: 480px) {
+  .content-container.two-column {
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    overflow: hidden;
+    padding: 1rem;
+  }
+
+  .left-column {
+    flex: 0 0 70%;
+    overflow-y: auto;
+    padding-right: 1rem;
+  }
+
+  .right-column {
+    flex: 0 0 30%;
+    overflow-y: auto;
+    border-left: 1px solid #ccc;
+    padding-left: 1rem;
+  }
+}
+
+/* =====================================================
+   Modal Styles (Used on Mobile for Album Details)
+   ===================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 1rem;
+  border-radius: var(--card-border-radius);
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.modal-close-button:hover {
+  color: var(--primary-color);
+}
