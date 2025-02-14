@@ -12,6 +12,7 @@ import AlbumDetails from './components/AlbumDetails';
 import Modal from './components/Modal';
 import { fetchTopAlbums } from './api/albums';
 import { ITunesEntry, Album, FilterOption } from './api/types';
+import { Analytics } from '@vercel/analytics/react';
 
 // Helper function to map an ITunesEntry to our Album type.
 // It selects the largest available image and parses the release date into a Date object.
@@ -177,6 +178,9 @@ const App: React.FC = () => {
       <footer>
         <p>&copy; 2025 Music World. All rights reserved.</p>
       </footer>
+       {/* Using Vercel analytics for tracking user interactions and performance. */}
+      <Analytics />
+      
     </div>
   );
 };
