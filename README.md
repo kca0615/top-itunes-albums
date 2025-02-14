@@ -11,6 +11,7 @@ A modern, responsive landing page that fetches and displays the top albums from 
 - [File Structure](#file-structure)
 - [Technologies Used](#technologies-used)
 - [Deployment](#deployment)
+- [Future Enhancements](#future-enhancements)
 
 
 ## Overview
@@ -29,9 +30,11 @@ This project displays the top 100 albums from the iTunes API. It provides a user
 - **Type Safety:** Developed using TypeScript with clearly defined interfaces.
 - **Pagination:** Displays albums in pages (10 per page) with navigable controls.
 - **Inifinite Scrolling:** Loads more albums automatically as the user scrolls.
-- **Search Functionality:** Search albums by name or artist.
+- **Search Functionality:** Search top 100 albums by name or artist.
+- **Filter/Sort Functionality:** Filter and Sort top 100 albums by title, artist, or newest release date.
 - **CSS Animations:** Smooth hover effects on album cards.
 - **Deployment Ready:** Easily deployable using Vercel.
+- **Future Enhancements:** Placeholder API modules (e.g., videos.ts and songs.ts) created for later component development.
 
 <div style="width:100%;display:inline-block;text-align:right;"><a href="#table-of-contents">[top]</a></div>
 
@@ -88,22 +91,32 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 ## File Structure
 
 The project is structured as follows:
-
-    top-albums-landing-page/
-    ├── index.html               # The main HTML file
-    ├── package.json             # Project dependencies and scripts
-    ├── tsconfig.json            # TypeScript configuration
-    ├── vite.config.ts           # Vite configuration file
-    └── src/
-        ├── main.tsx             # Entry point for React
-        ├── App.tsx              # Main App component for data fetching and state management
-        ├── components/          # Reusable React components
-        │   ├── AlbumCard.tsx    # Displays individual album details
-        │   ├── AlbumList.tsx    # Handles the album grid and pagination
-        │   ├── Pagination.tsx   # Renders pagination controls
-        │   └── SearchBar.tsx    # Search bar for filtering albums
-        └── styles/
-            └── index.css        # Global CSS styles using modern CSS techniques
+```graphql
+top-itunes-albums/
+├── .gitignore
+├── README.md
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── src/
+    ├── App.tsx
+    ├── main.tsx
+    ├── api/
+    │   ├── baseApi.ts         // Generic API helper function
+    │   ├── albums.ts          // Fetches top albums from iTunes RSS feed
+    │   ├── songs.ts           // Fetches top songs (or artist-related data) - future enhancements
+    │   ├── videos.ts          // Fetches top videos (or playlists) data - future enchancements
+    │   └── types.ts           // Type definitions (ITunesEntry, Album, SearchBarProps, FilterOption, etc.)
+    ├── components/
+    │   ├── AlbumCard.tsx      // Displays an individual album card
+    │   ├── AlbumDetails.tsx   // Displays detailed album information and preview button
+    │   ├── AlbumList.tsx      // Renders the album grid with infinite scroll and pagination
+    │   ├── Modal.tsx          // Full-screen modal component for mobile album details
+    │   ├── Pagination.tsx     // Pagination controls component
+    │   └── SearchBar.tsx      // Search input with clear button and filter button group (Title, Artist, Latest)
+    └── styles/
+        └── index.css          // Global styles, layout, responsive rules, etc.
+```
 
 <div style="width:100%;display:inline-block;text-align:right;"><a href="#table-of-contents">[top]</a></div>
 
@@ -122,6 +135,13 @@ The project is structured as follows:
 
 ## Deployment
 
-- Used Vercel
+- The project is configured with Vite and React, making it easy to deploy on Vercel. Vercel offers fast global delivery, automated builds, and scalability, ensuring a high-performance deployment environment.
+
+<div style="width:100%;display:inline-block;text-align:right;"><a href="#table-of-contents">[top]</a></div>
+
+
+## Future Enhancements
+
+- Extended API Integration: Although the current implementation focuses on top albums, placeholder API modules (e.g., videos.ts and songs.ts) have been set up to decouple API calls. With additional time, these can be expanded—for example, to create a carousel of featured songs using the songs API.
 
 <div style="width:100%;display:inline-block;text-align:right;"><a href="#table-of-contents">[top]</a></div>

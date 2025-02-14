@@ -4,17 +4,22 @@
 :root {
   --primary-color: #FF1F56;
   --secondary-color: #2d394b;
-  --tertiary-color: rgb(255 31 87 / 0.5);
-  --background-color: #0b1828;
-  --text-color: #333;
-  --hover-color: rgb(255 31 87 / 0.8);
+  --tertiary-color: #3e73ff;
+  --teal-color:#00bec0;
+  --green-color:#009e00;
+  --hover-color: rgb(255 31 87 / 0.5);
   --disabled-color: rgb(203 203 205 / 0.99);
-  --disabled-text: #333;
+  --text-color: #333;
+  --disabled-text: #333;  
+  --background-color: #0b1828;
+  --light-bg: #fff;
   --dark-bg: #1B1C1E;
+  --light-text-color: #fff;
+  --dark-text-color: #333;
+
   --card-border-radius: 8px;
   --transition-speed: 0.3s;
 }
-
 * {
   margin: 0;
   padding: 0;
@@ -24,20 +29,24 @@
   scrollbar-color: var(--primary-color) transparent;
 }
 
-/* WebKit scrollbar styling (Chrome, Edge, Safari) */
+/* WebKit scrollbar styling */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
   background: transparent;
+  border-radius: 32px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--primary-color);
-  border-radius: 2px;
+  border-radius: 32px;
 }
+
+
+
 
 /* =====================================================
    Global Base Styles
@@ -54,48 +63,101 @@ body {
   height: 100vh;
 }
 
-header {
+header, footer {
   background-color: var(--secondary-color);
-  color: #fff;
+  color: var(--light-text-color);;
   padding: 1rem;
   text-align: center;
 }
 
 footer {
-  background-color: var(--secondary-color);
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
+font-size: x-small;
 }
 
+h2 {
+    font-size: 56px;
+    line-height: 1.07143;
+    font-weight: 600;
+    letter-spacing: -.005em;
+    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  }
+@media only screen and (max-width: 1068px) {
+    h2 {
+      font-size: 48px;
+      line-height: 1.08349;
+      letter-spacing: -.002em;
+    }
+  }
+@media only screen and (max-width: 734px) {
+    h2 {
+        font-size: 32px;
+        line-height: 1.125;
+        letter-spacing: .004em;
+    }
+  }
+
 /* =====================================================
-   Search Bar & Filter Styles
+   Header (SearchBar Area) Styles
    ===================================================== */
-/* Container for search input and filter buttons */
 .search-filter-container {
-  display: flex;               
-  justify-content: space-between;  
-  align-items: center;         
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0 1rem;
 }
 
-/* For mobile view (viewport <480px), stack the search area and filters vertically */
+/* Desktop: Arrange elements in a row with the order:
+   1) Search Form, 2) H2 Title, 3) Filter Button Group */
+.search-form-wrapper {
+  order: 1;
+  margin-right: 1rem;
+}
+
+.search-header-title {
+  order: 2;
+  /* margin: 0 1rem;
+  font-size: 56px;
+  font-weight: 600; */
+}
+
+.filter-button-group {
+  order: 3;
+  display: flex;
+  gap: 0.75rem;
+  background: var(--dark-bg);
+  padding: 8px;
+  border-radius: 8px;
+  justify-content: center;
+}
+
+/* Mobile: Stack elements vertically with H2 at the top, then search form, then filters */
 @media (max-width: 479px) {
   .search-filter-container {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
   }
-
-  .search-form {
-    margin-right: 0; 
+  .search-header-title {
+    order: 1;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 32px;
+  }
+  .search-form-wrapper {
+    order: 2;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+  .filter-button-group {
+    order: 3;
   }
 }
 
-/* The search form and label wrapping the input and clear button */
+/* =====================================================
+   Search Form & Input Styles
+   ===================================================== */
 .search-form {
-  /* flex: 1; */
   position: relative;
-  margin-right: 1rem;
+  margin-right: 0; 
 }
 
 .search-input-label {
@@ -103,27 +165,26 @@ footer {
   position: relative;
 }
 
-/* Search input styling */
+/* Search input styles */
 .search-input {
   width: 100%;
   max-width: 400px;
-  padding: 0 2.5rem;
+  padding: 0 2.5rem; /* Extra space for clear button */
   border: none;
   border-radius: var(--card-border-radius);
-  height: 50px;
+  height: 34px;
   font-size: 14px;
-  /* Background image for magnifying glass icon (ensure path is correct) */
+  /* Background image for magnifying glass */
   background-image: url("../assets/magSearch.svg");
   background-repeat: no-repeat;
   background-position: left center;
-  background-color: #fff;
   border: 1px solid #000;
   box-shadow: none;
   appearance: none;
   -webkit-appearance: none;
 }
 
-/* Clear button, positioned inside the search input (within the label) */
+/* Clear button inside the search input */
 .clear-button {
   position: absolute;
   right: 10px;
@@ -135,9 +196,18 @@ footer {
   cursor: pointer;
 }
 
+p.no-results { 
+  padding: 20px;
+  background:var(--teal-color);
+  color:var(--light-text);
+  font-size: 20px;
+  font-weight:600;
+  text-align:center;
+}
+
 .filter-button-group {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
   background: var(--dark-bg);
   padding: 8px;
   border-radius: 8px;
@@ -146,7 +216,7 @@ footer {
 
 /* Individual filter button styling */
 button.filter-button {
-  padding: 0.5rem 1rem;
+  padding: .25rem 1.25rem;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 700;
@@ -159,25 +229,15 @@ button.filter-button {
 button.filter-button.active {
   background: var(--primary-color);
   min-width: 50px;
-  color: #fff;
+  color: var(--light-text-color);
   border: none;
   border-radius: var(--card-border-radius);
   transition: background-color var(--transition-speed) ease;
 }
 
 
-/* For mobile view (viewport <480px), stack the search area and filters vertically */
-@media (max-width: 479px) {
-  .search-filter-container {
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .search-form {
-    margin-right: 0; 
-    margin-bottom:1.25rem;
-  }
-}
+
 /* =====================================================
    Album List & Grid Styles
    ===================================================== */
@@ -190,12 +250,12 @@ button.filter-button.active {
 .album-list-container {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 60px;
+  padding: 20px 10px 60px 0;
 }
 
 .album-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 1rem;
 }
 
@@ -203,7 +263,7 @@ button.filter-button.active {
    Album Card Styles
    ===================================================== */
 .album-card {
-  background-color: #fff;
+  background: var(--light-bg);
   border-radius: var(--card-border-radius);
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1),
               11px 12px 36px 0px rgba(0, 0, 0, 0.1),
@@ -253,10 +313,51 @@ button.filter-button.active {
 }
 
 /* =====================================================
+   Album Detail Styles
+   ===================================================== */
+
+.album-detail-container {
+  padding: 1rem;
+  background: var(--light-bg);
+  text-align: center;
+}
+
+.album-details {
+  margin: auto;
+}
+
+.album-details h2 {
+  font-size: 2rem;
+  color: var(--dark-text-color);
+  margin-bottom: 1rem;
+}
+.album-details-image-container img {
+    background: var(--light-bg);
+    border-radius: var(--card-border-radius);
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1), 11px 12px 36px 0px rgba(0, 0, 0, 0.1), 42px 49px 65px 0px rgba(0, 0, 0, 0.09), 95px 111px 88px 0px rgba(0, 0, 0, 0.05), 170px 198px 104px 0px rgba(0, 0, 0, 0.01), 265px 309px 114px 0px rgba(0, 0, 0, 0);
+    overflow: hidden;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.album-details h4 {
+  font-size: 1.5rem;
+  color: var(--dark-text-color);
+  margin: 1rem 0;
+}
+button.preview-button {
+  background: var(--green-color);
+  color: var(--light-text-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--card-border-radius);
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease;
+}
+/* =====================================================
    Pagination Styles
    ===================================================== */
 .pagination-container {
-  margin: 2rem 0;
+  margin: 1rem 0 0 0;
   text-align: center;
 }
 
@@ -268,8 +369,8 @@ button.filter-button.active {
 }
 
 .pagination-button {
-  background-color: var(--tertiary-color);
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
   border: none;
   padding: 0.5rem 0.75rem;
   border-radius: var(--card-border-radius);
@@ -291,7 +392,7 @@ button.filter-button.active {
   background-color: var(--secondary-color);
 }
 
-/* Sticky Pagination (outside the scrollable album grid) */
+/* Sticky Pagination */
 .pagination-wrapper {
   position: sticky;
   bottom: 0;
@@ -299,6 +400,23 @@ button.filter-button.active {
   padding: 0.5rem 1rem;
   z-index: 10;
   border-top: 1px solid #ccc;
+}
+
+/* Responsive Pagination Styles for Mobile */
+@media (max-width: 479px) {
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .pagination-button {
+    padding: 0.4rem 0.6rem;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60px;
+  }
 }
 
 /* =====================================================
@@ -313,7 +431,6 @@ button.filter-button.active {
 /* =====================================================
    Layout Styles for Main Content
    ===================================================== */
-/* Single-column layout when no album is selected */
 .content-container.single-column {
   flex: 1;
   display: block;
@@ -321,23 +438,20 @@ button.filter-button.active {
   padding: 1rem;
 }
 
-/* Two-column layout for desktops when an album is selected (viewport >= 480px) */
 @media (min-width: 480px) {
   .content-container.two-column {
     flex: 1;
     display: flex;
-    gap: 1rem;
+    gap: .5rem;
     overflow: hidden;
-    padding: 1rem;
+    padding: 0 1rem;
   }
-
-  .left-column {
+  .album-grid-container {
     flex: 0 0 70%;
     overflow-y: auto;
     padding-right: 1rem;
   }
-
-  .right-column {
+  .album-detail-container {
     flex: 0 0 30%;
     overflow-y: auto;
     border-left: 1px solid #ccc;
@@ -346,7 +460,7 @@ button.filter-button.active {
 }
 
 /* =====================================================
-   Modal Styles (Used on Mobile for Album Details)
+   Modal Styles (Mobile Album Details)
    ===================================================== */
 .modal-overlay {
   position: fixed;
@@ -362,9 +476,8 @@ button.filter-button.active {
 }
 
 .modal-content {
-  background: #fff;
+  background: var(--light-bg);
   padding: 1rem;
-  border-radius: var(--card-border-radius);
   width: 100%;
   height: 100%;
   overflow-y: auto;

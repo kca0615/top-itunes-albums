@@ -14,8 +14,8 @@ interface AlbumCardProps {
 const AlbumCard: React.FC<AlbumCardProps> = ({ album, onClick }) => {
   // Generate higher-resolution image URLs by replacing the dimensions in the URL.
   // This assumes that the original URL contains a dimension substring like "170x170" that can be replaced.
-  const image2x = album.image.replace(/(\d+x\d+)/, '316x316');
-  const image3x = album.image.replace(/(\d+x\d+)/, '632x632');
+  const image2x = album.image.replace(/(\d+x\d+)/, '200x200');
+  const image3x = album.image.replace(/(\d+x\d+)/, '316x316');
 
   // Handle keyboard accessibility:
   // When the card is focused, pressing Enter or Space will trigger the onClick callback.

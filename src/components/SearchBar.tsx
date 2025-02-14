@@ -1,44 +1,48 @@
 // src/components/SearchBar.tsx
-// SearchBar component that provides a left-aligned search input with an integrated clear button
-// and a right-aligned filter button group acting as tabs ("Title", "Artist", "Latest").
-// This version uses a semantic <form> and <label> to wrap the input and clear button.
+// SearchBar component that displays a search input (with an integrated clear button),
+// an H2 title ("Top Albums"), and a filter button group ("Title", "Artist", "Latest").
+// On desktop, these elements are arranged horizontally; on mobile, they stack vertically.
 
 import React from 'react';
 import { FilterOption, SearchBarProps } from '../api/types';
 
 const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, filter, setFilter }) => {
   return (
-    // The container aligns the search form and the filter button group side by side.
     <div className="search-filter-container">
-      {/* The search form wraps the input and clear button, using a label for semantic association */}
-      <form
-        className="search-form"
-        onSubmit={(e) => e.preventDefault()} // Prevent default form submission behavior.
-      >
-        <label className="search-input-label">
-          <input
-            type="text"
-            placeholder="Enter artist or album"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
-            aria-label="Enter artist or album"
-          />
-          {/* The clear button is positioned inside the label so it appears inside the search input.
-              It is only rendered when there is text in the input. */}
-          {searchQuery && (
-            <button
-              type="button"
-              onClick={() => setSearchQuery('')}
-              className="clear-button"
-              aria-label="Clear search"
-            >
-              &times;
-            </button>
-          )}
-        </label>
-      </form>
-      {/* The filter button group is placed on the right side */}
+      {/* Search form container */}
+      <div className="search-form-wrapper">
+        <form
+          className="search-form"
+          onSubmit={(e) => e.preventDefault()} // Prevent form submission
+        >
+          <label className="search-input-label">
+            <input
+              type="text"
+              placeholder="Enter artist or album"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+              aria-label="Enter artist or album"
+            />
+            {/* Clear button inside the input field, shown only when text exists */}
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="clear-button"
+                aria-label="Clear search"
+              >
+                &times;
+              </button>
+            )}
+          </label>
+        </form>
+      </div>
+
+      {/* H2 Title */}
+      <h2 className="search-header-title">Top Albums</h2>
+
+      {/* Filter button group */}
       <div className="filter-button-group">
         <button
           onClick={() => setFilter('title')}

@@ -1,51 +1,54 @@
 // src/components/AlbumDetails.tsx
 // This component displays detailed information for a selected album.
-// It modifies the album image URL to display a larger, high-resolution image (632x632)
-// by replacing the dimension substring in the original URL.
-
+// It shows a larger album image (316x316), the album title, artist,
+// and includes a "Preview" button that opens the album's iTunes page.
+// (The RSS feed does not include a short bio; to display one, you would need additional data.)
 import React from 'react';
 import { Album } from '../api/types';
 
-// Define the props expected by AlbumDetails.
-// - album: The Album object containing details such as title, artist, image URL, etc.
 interface AlbumDetailsProps {
   album: Album;
 }
 
 const AlbumDetails: React.FC<AlbumDetailsProps> = ({ album }) => {
-  // Generate a high resolution image URL by replacing the dimension substring in the URL.
-  // This assumes the original image URL includes a dimension pattern (e.g., "170x170").
-  const highResImage = album.image.replace(/(\d+x\d+)/, '300x300');
+  // Generate a high resolution image URL by replacing the dimension substring with '300x300'.
+  const highResImage = album.image.replace(/(\d+x\d+)/, '316x316');
+
+  // Handle button click to open the album URL (preview)
+  const handlePreviewClick = () => {
+    window.open(album.albumUrl, '_blank', 'noopener,noreferrer');
+  };
 
   return (
-    // The container is designated as a region for accessibility purposes,
-    // with an ARIA label that describes the content.
     <div
       className="album-details"
       role="region"
       aria-label={`Details for ${album.title} by ${album.artist}`}
     >
-      {/* Display the album title */}
+      {/* Display album title */}
       <h2>{album.title}</h2>
-      {/* Display the album artist */}
-      <p>
-        <strong>Artist:</strong> {album.artist}
-      </p>
-      {/* Container for the album image */}
+      {/* Display artist name */}
+
+      {/* Album cover image (high resolution) */}
       <div className="album-details-image-container">
-        {/* Display the high resolution album cover image */}
         <img
           src={highResImage}
           alt={`${album.title} cover`}
           className="album-details-image"
         />
       </div>
-      {/* Link to view the album on iTunes, opens in a new tab */}
-      <p>
-        <a href={album.albumUrl} target="_blank" rel="noopener noreferrer">
-          View on iTunes
-        </a>
-      </p>
+      <h4>
+        <strong>Artist:</strong> {album.artist}
+      </h4>
+      {/* "Preview" button that opens the album URL */}
+      <button 
+        
+        onClick={handlePreviewClick}
+        className="preview-button"
+        aria-label="Preview album on iTunes"
+      >
+        Preview on iTunes
+      </button>
     </div>
   );
 };
