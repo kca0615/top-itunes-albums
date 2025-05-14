@@ -142,7 +142,7 @@ const App: React.FC = () => {
       )}
 
       <footer>
-        <p>&copy; 2025 Music World. All rights reserved.</p>
+        <p>&copy; 2025 Top Albums. All rights reserved.</p>
       </footer>
 
       <Analytics />
