@@ -40,7 +40,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, filt
       </div>
 
       {/* H2 Title */}
-      <h2 className="search-header-title">Top Albums</h2>
+      <h2 className="search-header-title">Top Albums!!</h2>
 
       {/* Filter button group */}
       <div className="filter-button-group">
